@@ -142,7 +142,7 @@ int main(void)
  
   motor_soft_start();
 	
-	HAL_Delay(10000);
+	HAL_Delay(60000);
  
   motor_soft_stop();
  
