@@ -42,48 +42,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	*/
 }
 
-/*
-static void tgl_soft_pwm(uint32_t *del){
-	
-	while(1)
-	{
-		
-			GPIOB->BSRR = GPIO_PIN_0;
-			DelayMicro(*del);		
-			GPIOB->BRR = GPIO_PIN_0;
-			DelayMicro(*del);
-			pulse_angle.angle += 0.1125; 
-			
-			if(pulse_angle.angle >= 360.0) 
-			{
-				pulse_angle.angle = 0.0;			 
-			}
-			
-	}
-	
-}		
- */
-/*
-static void motor_turn(uint32_t sec){
-	
-	uint32_t rpm = 3200*sec;
-	
-	for(uint32_t i=0;i<rpm;++i){
-	 
-		GPIOB->BSRR = GPIO_PIN_0;
-		DelayMicro(156);;		
-		GPIOB->BRR = GPIO_PIN_0;
-		DelayMicro(156);;
-		pulse_angle.angle += 0.1125; 
-		
-		if(pulse_angle.angle >= 360.0) 
-		{
-			pulse_angle.angle = 0.0;			 
-		}
  
-	}
-} 
-*/
+ 
 
 /*процедура плавного старта двигателя, для исключения пропуска шагов*/
 void motor_soft_start(void){
