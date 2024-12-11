@@ -27,6 +27,7 @@ void cursor_settings(uint8_t cursor, uint8_t blink);
 void display_send_num(int num, uint8_t dig_num, uint8_t pos_x, uint8_t pos_y);
 void start_screen(void);
 void main_menu(void);
+void display_clear_text(void);
 
 
 #endif 

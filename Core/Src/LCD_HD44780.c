@@ -88,6 +88,20 @@ void display_clear(void){
         HAL_Delay(4);
 }
 
+void display_clear_text(void){
+	
+	char tmpstr[16]={"               "};
+	tmpstr[15] = '\0';
+	
+	goto_xy(0, 0);   
+	display_send_char(tmpstr); 
+	
+	goto_xy(0, 1);
+	display_send_char(tmpstr);
+	
+	
+}
+
 void display_backligt(uint8_t on_off){
     if(on_off){
         backlight_status = 0x08;
@@ -175,12 +189,18 @@ void start_screen(void){
 }
 
 void main_menu(void){
-    display_send_char("RPM");
-    goto_xy(8, 0);
-    display_send_char("D");
-    goto_xy(0, 1);
-		display_send_char("a1:");
-    goto_xy(8, 1);
-		display_send_char("a2:");
+	
+	goto_xy(0, 0);
+	display_send_char("9B");
+	
+	goto_xy(3, 0);	
+	display_send_char("12B");
+	
+	goto_xy(7, 0);	
+	display_send_char("13B");
+	
+	goto_xy(12, 0);	
+	display_send_char("D");
+	
 }
 

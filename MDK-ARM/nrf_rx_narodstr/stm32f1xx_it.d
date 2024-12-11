@@ -32,3 +32,5 @@ nrf_rx_narodstr\stm32f1xx_it.o: ../Core/Inc/stm32f1xx_it.h
 nrf_rx_narodstr\stm32f1xx_it.o: ../Core/Inc/NRF24.h
 nrf_rx_narodstr\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 nrf_rx_narodstr\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+nrf_rx_narodstr\stm32f1xx_it.o: ../Core/Inc/stepper_motor.h
+nrf_rx_narodstr\stm32f1xx_it.o: ../Core/Inc/LCD_HD44780.h

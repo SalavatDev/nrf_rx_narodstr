@@ -50,19 +50,50 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			NRF24_WriteReg(STATUS, 0x40);
 			NRF24_Read_Buf(RD_RX_PLOAD,RX_BUF,TX_PLOAD_WIDTH);
 			dt = *(uint16_t*)RX_BUF;
+		 /*
+			display_send_num((int)(dt & 0x0200), 1, 0, 1);
+			display_send_num((int)(dt & 0x1000), 1, 3, 1);
+			display_send_num((int)(dt & 0x2000), 1, 7, 1);
+	 	 */
 			dt = dt & 0x01ff;
 			dt = ((float)((float)dt / 512) * 360); 		 
 			if(pulse_angle.synchr){				
 				pulse_angle.synchr = SYNCHR_OFF;
 				pulse_angle.angle = (float)dt;
 			}
-			display_send_num(dt, 4, 0, 1);
-			display_send_num((int)fabs((float)dt-pulse_angle.angle), 4, 8, 1);
+			
+			display_send_num((int)dt, 4, 12, 1);
 			
 		}	
 		   
+	}else if(GPIO_Pin	== GPIO_PIN_10){
+		
+		is_rpm_editing = (!is_rpm_editing);
+		
+		if(is_rpm_editing){
+			
+			HAL_NVIC_DisableIRQ(EXTI3_IRQn);
+			HAL_TIM_Base_Stop_IT(&htim1);
+
+			HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);
+			
+			display_clear_text();
+			goto_xy(0, 0);
+			display_send_char("RPM");			 			 
+			display_send_num((int)rpm_val[0], 3, 0, 1);
+			
+		}else{
+			
+		  HAL_TIM_Encoder_Stop_IT(&htim3, TIM_CHANNEL_ALL);
+			HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+			HAL_TIM_Base_Start_IT(&htim1);
+
+			display_clear_text();
+			main_menu(); 
+			
+		}
+ 
 	}
-	
 	 
 	
 }
@@ -129,22 +160,27 @@ int main(void)
   MX_TIM2_Init();
   MX_I2C1_Init();
   MX_TIM1_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 	HAL_TIM_Base_Start(&htim2);
 	
+	if(RIGHT_DIR)
+		HAL_GPIO_WritePin(DIR_ROTATION_GPIO_Port, DIR_ROTATION_Pin, GPIO_PIN_SET);
+	else
+		HAL_GPIO_WritePin(DIR_ROTATION_GPIO_Port, DIR_ROTATION_Pin, GPIO_PIN_RESET);
+	
  
+	
 	LCD_HD44780_init();
   
 	main_menu(); 
 	NRF24_ini();
- 
-	 
- 
-  motor_soft_start();
+
+	motor_soft_start();
 	
-	HAL_Delay(60000);
+	HAL_Delay(15000);
  
-  motor_soft_stop();
+	motor_soft_stop();
  
   /* USER CODE END 2 */
 
@@ -155,7 +191,10 @@ int main(void)
 	
   while (1)
   {
-		
+		/*
+		if(is_rpm_editing){
+			
+		}*/
 	 /*
 	 	GPIOB->BSRR = GPIO_PIN_0;
 		DelayMicro(156);

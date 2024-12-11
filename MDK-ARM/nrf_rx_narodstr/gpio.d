@@ -29,3 +29,4 @@ nrf_rx_narodstr\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h
 nrf_rx_narodstr\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 nrf_rx_narodstr\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 nrf_rx_narodstr\gpio.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
+nrf_rx_narodstr\gpio.o: ../Core/Inc/stepper_motor.h

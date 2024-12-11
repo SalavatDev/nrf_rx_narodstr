@@ -23,6 +23,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "NRF24.h"
+#include "stepper_motor.h"
+#include "LCD_HD44780.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -53,10 +55,14 @@
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+int16_t rd_cnt_encoder = 0;
+uint32_t timout_encoder = 0;
+
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern TIM_HandleTypeDef htim1;
+extern TIM_HandleTypeDef htim3;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -207,7 +213,7 @@ void EXTI3_IRQHandler(void)
   /* USER CODE BEGIN EXTI3_IRQn 0 */
 
   /* USER CODE END EXTI3_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(IRQ_Pin_Pin);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);
   /* USER CODE BEGIN EXTI3_IRQn 1 */
  
   
@@ -227,6 +233,60 @@ void TIM1_UP_IRQHandler(void)
   /* USER CODE BEGIN TIM1_UP_IRQn 1 */
 
   /* USER CODE END TIM1_UP_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM3 global interrupt.
+  */
+void TIM3_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM3_IRQn 0 */
+  
+  /* USER CODE END TIM3_IRQn 0 */
+ // HAL_TIM_IRQHandler(&htim3);
+  /* USER CODE BEGIN TIM3_IRQn 1 */
+  
+	
+	//display_send_num((int)timout_encoder, 6, 0, 1);
+	
+	if(rd_cnt_encoder < (int16_t)TIM3->CNT){
+		
+		if(cnt_encoder < 5)
+			cnt_encoder++;
+			
+	}else if(rd_cnt_encoder > (int16_t)TIM3->CNT){
+	 
+		if(cnt_encoder > 0)
+			cnt_encoder--;
+		
+	}
+	
+	 
+  rd_cnt_encoder = (int16_t)TIM3->CNT;
+	
+	timout_encoder = 0;
+	
+	// 
+	//cnt_encoder &=  0x07;
+	display_send_num((int)cnt_encoder, 3, 0, 1);
+  DelayMicro(65000);
+	HAL_TIM_IRQHandler(&htim3);	
+	 
+  /* USER CODE END TIM3_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI line[15:10] interrupts.
+  */
+void EXTI15_10_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+
+  /* USER CODE END EXTI15_10_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
+  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+
+  /* USER CODE END EXTI15_10_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

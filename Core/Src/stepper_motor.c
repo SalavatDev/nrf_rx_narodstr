@@ -12,10 +12,13 @@
 #define freq TIM1->ARR
 extern 	TIM_HandleTypeDef htim1;
  
-tim_count pulse_angle = {  0.0, 0};
+tim_count pulse_angle = {0.0, 0};
 
-//uint32_t cnt_pulse = 0;
-
+uint16_t rpm[6] = {RPM_1, RPM_15, RPM_30, RPM_60, RPM_90, RPM_120};
+uint16_t rpm_val[6] = {1, 15, 30, 60, 90, 120};
+	
+uint8_t cnt_encoder = 0;
+uint8_t is_rpm_editing = 0;
 
 /**В Callback функции инкрементируем количество импульсов
   *6400 т.к. на один импульс происходит 2 вызова функции
@@ -25,26 +28,30 @@ tim_count pulse_angle = {  0.0, 0};
  
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	  
-		if(pulse_angle.angle >= 360.0) 
-		{
-			pulse_angle.angle = 0.0;			 
-		}
-		
-		pulse_angle.angle += 0.05625;
-		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-		/*
-		cnt_pulse++;
-		if(cnt_pulse == 6400){
-			cnt_pulse = 0;
+	
+		if(RIGHT_DIR){
+			
+				if(pulse_angle.angle >= 360.0) 
+				{
+					pulse_angle.angle = 0.0;			 
+				}		
+				pulse_angle.angle += 0.05625;
+			
+			}else{
+			
+				if(pulse_angle.angle <= 0.0) 
+				{
+					pulse_angle.angle = 360.0;			 
+				}		
+				pulse_angle.angle -= 0.05625;
 			
 		}
-	*/
+		
+		HAL_GPIO_TogglePin(STEPPER_GPIO_Port, STEPPER_Pin);
+ 
 }
 
  
- 
-
 /*процедура плавного старта двигателя, для исключения пропуска шагов*/
 void motor_soft_start(void){
 	 
@@ -55,49 +62,11 @@ void motor_soft_start(void){
 	 
 		freq = i;
 		HAL_Delay(1);
+		
 	}
 	 
-	pulse_angle.synchr = SYNCHR_ON;
-  
-	
- /*
-
-	pulse_angle.synchr = SYNCHR_ON;
+	pulse_angle.synchr = SYNCHR_ON; 
  
-  
-	 for(uint16_t i=5000; i >= 156; i--){
-    
-		GPIOB->BSRR = GPIO_PIN_0;
-		DelayMicro(i);		
-		GPIOB->BRR = GPIO_PIN_0;
-		DelayMicro(i);
-		pulse_angle.angle += 0.1125; 
-		
-		if(pulse_angle.angle >= 360.0) 
-		{
-			pulse_angle.angle = 0.0;			 
-		}
-		
-		//DelayMicro(100);
- 
-	}
-	
-	 
-	for(uint32_t i=0;i<32000;++i){
-	 
-		GPIOB->BSRR = GPIO_PIN_0;
-		DelayMicro(156);;		
-		GPIOB->BRR = GPIO_PIN_0;
-		DelayMicro(156);;
-		pulse_angle.angle += 0.1125; 
-		
-		if(pulse_angle.angle >= 360.0) 
-		{
-			pulse_angle.angle = 0.0;			 
-		}
- 
-	}
-	*/
 }
 
 
@@ -113,37 +82,7 @@ void motor_soft_stop(void){
 	}
 	
 	HAL_TIM_Base_Stop_IT(&htim1);;
-
- /*
-	for(uint16_t i=157; i <= 1000;++i ){
-		
-		GPIOB->BSRR = GPIO_PIN_0;
-		DelayMicro(i);		
-		GPIOB->BRR = GPIO_PIN_0;
-		DelayMicro(i);
-		pulse_angle.angle += 0.1125; 
-		
-		if(pulse_angle.angle >= 360.0) 
-		{
-			pulse_angle.angle = 0.0;			 
-		}
-	}
-	
-	for(uint16_t i=1; i <= 20; ++i ){
-		
-		GPIOB->BSRR = GPIO_PIN_0;
-		HAL_Delay(i);		
-		GPIOB->BRR = GPIO_PIN_0;
-		HAL_Delay(i);
-		pulse_angle.angle += 0.1125; 
-		
-		if(pulse_angle.angle >= 360.0) 
-		{
-			pulse_angle.angle = 0.0;			 
-		}
-		
-	}
- */
+ 
 	
 }
 

@@ -57,9 +57,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define IRQ_Pin_Pin GPIO_PIN_3
-#define IRQ_Pin_GPIO_Port GPIOA
-#define IRQ_Pin_EXTI_IRQn EXTI3_IRQn
+#define STEPPER_Pin GPIO_PIN_0
+#define STEPPER_GPIO_Port GPIOB
+#define DIR_ROTATION_Pin GPIO_PIN_12
+#define DIR_ROTATION_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

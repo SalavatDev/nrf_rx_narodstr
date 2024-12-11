@@ -66,6 +66,7 @@ void DelayMicro(__IO uint32_t us)
 		TIM2->CNT = 0;	
     while(TIM2->CNT < us);
 }
+
 //--------------------------------------------------
 uint8_t NRF24_ReadReg(uint8_t addr)
 {
@@ -80,6 +81,7 @@ uint8_t NRF24_ReadReg(uint8_t addr)
   CS_OFF;
   return dt;
 }
+
 //------------------------------------------------
 void NRF24_WriteReg(uint8_t addr, uint8_t dt)
 {
@@ -89,6 +91,7 @@ void NRF24_WriteReg(uint8_t addr, uint8_t dt)
   SPI_send_soft(dt);//отправим данные в шину
   CS_OFF;
 }
+
 //------------------------------------------------
 void NRF24_ToggleFeatures(void)
 {
@@ -100,6 +103,7 @@ void NRF24_ToggleFeatures(void)
   SPI_send_soft(dt[0]);
   CS_OFF;
 }
+
 //-----------------------------------------------
 void NRF24_Read_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes)
 {
@@ -111,6 +115,7 @@ void NRF24_Read_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes)
   
   CS_OFF;
 }
+
 //------------------------------------------------
 void NRF24_Write_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes)
 {
@@ -124,6 +129,7 @@ void NRF24_Write_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes)
 	
   CS_OFF;
 }
+
 //------------------------------------------------
 void NRF24_FlushRX(void)
 {
@@ -133,6 +139,7 @@ void NRF24_FlushRX(void)
   DelayMicro(1);
   CS_OFF;
 }
+
 //------------------------------------------------
 void NRF24_FlushTX(void)
 {
@@ -142,6 +149,7 @@ void NRF24_FlushTX(void)
   DelayMicro(1);
   CS_OFF;
 }
+
 //------------------------------------------------
 void NRF24L01_RX_Mode(void)
 {
@@ -156,6 +164,7 @@ void NRF24L01_RX_Mode(void)
   NRF24_FlushRX();
   NRF24_FlushTX();
 }
+
 //------------------------------------------------
 void NRF24L01_TX_Mode(uint8_t *pBuf)
 {
@@ -165,6 +174,7 @@ void NRF24L01_TX_Mode(uint8_t *pBuf)
   NRF24_FlushRX();
   NRF24_FlushTX();
 }
+
 //------------------------------------------------
 void NRF24_Transmit(uint8_t addr,uint8_t *pBuf,uint8_t bytes)
 {
@@ -179,6 +189,7 @@ void NRF24_Transmit(uint8_t addr,uint8_t *pBuf,uint8_t bytes)
   CS_OFF;
   CE_SET;
 }
+
 //------------------------------------------------
 uint8_t NRF24L01_Send(uint8_t *pBuf)
 {
@@ -212,6 +223,7 @@ uint8_t NRF24L01_Send(uint8_t *pBuf)
   NRF24L01_RX_Mode();
 	return regval;
 }
+
 //------------------------------------------------
 char str1[64];
 
@@ -250,6 +262,7 @@ uint8_t isChipConnected(void)
 
 	return 0;
 }
+
 //------------------------------------------------
 void NRF24_ini(void)
 {
