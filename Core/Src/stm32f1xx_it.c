@@ -56,7 +56,6 @@
 /* USER CODE BEGIN 0 */
 
 int16_t rd_cnt_encoder = 0;
-uint32_t timout_encoder = 0;
 
 /* USER CODE END 0 */
 
@@ -216,8 +215,6 @@ void EXTI3_IRQHandler(void)
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);
   /* USER CODE BEGIN EXTI3_IRQn 1 */
  
-  
- 
   /* USER CODE END EXTI3_IRQn 1 */
 }
 
@@ -264,11 +261,8 @@ void TIM3_IRQHandler(void)
 	 
   rd_cnt_encoder = (int16_t)TIM3->CNT;
 	
-	timout_encoder = 0;
-	
-	// 
-	//cnt_encoder &=  0x07;
-	display_send_num((int)cnt_encoder, 3, 0, 1);
+		
+	display_send_num((int)rpm_val[cnt_encoder], 3, 0, 1);
   DelayMicro(65000);
 	HAL_TIM_IRQHandler(&htim3);	
 	 
