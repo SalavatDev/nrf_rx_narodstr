@@ -80,19 +80,23 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			display_clear_text();
 			goto_xy(0, 0);
 			display_send_char("RPM");			 			 
-			display_send_num((int)rpm_val[cnt_encoder], 3, 0, 1);
+			display_send_num((int)rpm_val[current_cnt_encoder], 3, 0, 1);
+			
 			
 		}else{
 			
 		  HAL_TIM_Encoder_Stop_IT(&htim3, TIM_CHANNEL_ALL);
 			HAL_NVIC_EnableIRQ(EXTI3_IRQn);
 			HAL_TIM_Base_Start_IT(&htim1);
-
+			is_change_period_step = 1;
 			display_clear_text();
 			main_menu(); 
 			
 		}
- 
+		
+		DelayMicro(65000); DelayMicro(65000); DelayMicro(65000);
+		 __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_10);
+		
 	}
 	 
 	
@@ -168,19 +172,13 @@ int main(void)
 		HAL_GPIO_WritePin(DIR_ROTATION_GPIO_Port, DIR_ROTATION_Pin, GPIO_PIN_SET);
 	else
 		HAL_GPIO_WritePin(DIR_ROTATION_GPIO_Port, DIR_ROTATION_Pin, GPIO_PIN_RESET);
-	
  
 	
 	LCD_HD44780_init();
   
 	main_menu(); 
 	NRF24_ini();
-
-	motor_soft_start();
-	
-	HAL_Delay(15000);
  
-	motor_soft_stop();
  
   /* USER CODE END 2 */
 
@@ -191,6 +189,8 @@ int main(void)
 	
   while (1)
   {
+		
+		
 		/*
 		if(is_rpm_editing){
 			

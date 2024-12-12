@@ -240,7 +240,7 @@ void TIM3_IRQHandler(void)
   /* USER CODE BEGIN TIM3_IRQn 0 */
   
   /* USER CODE END TIM3_IRQn 0 */
- // HAL_TIM_IRQHandler(&htim3);
+  //HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
   
 	
@@ -248,13 +248,13 @@ void TIM3_IRQHandler(void)
 	
 	if(rd_cnt_encoder < (int16_t)TIM3->CNT){
 		
-		if(cnt_encoder < 5)
-			cnt_encoder++;
+		if(current_cnt_encoder < 5)
+			current_cnt_encoder++;
 			
 	}else if(rd_cnt_encoder > (int16_t)TIM3->CNT){
 	 
-		if(cnt_encoder > 0)
-			cnt_encoder--;
+		if(current_cnt_encoder > 0)
+			current_cnt_encoder--;
 		
 	}
 	
@@ -262,8 +262,8 @@ void TIM3_IRQHandler(void)
   rd_cnt_encoder = (int16_t)TIM3->CNT;
 	
 		
-	display_send_num((int)rpm_val[cnt_encoder], 3, 0, 1);
-  DelayMicro(65000);
+	display_send_num((int)rpm_val[current_cnt_encoder], 3, 0, 1);
+  DelayMicro(65000); DelayMicro(65000);
 	HAL_TIM_IRQHandler(&htim3);	
 	 
   /* USER CODE END TIM3_IRQn 1 */

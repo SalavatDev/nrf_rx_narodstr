@@ -31,16 +31,13 @@ enum {
 	
 };
 
-
  
-
-void motor_soft_start(void);
-void motor_soft_stop(void);
- 
+void motor_step_period_change(void);
 extern uint8_t is_rpm_editing;
-extern uint8_t cnt_encoder;
+extern uint8_t current_cnt_encoder;
 extern tim_count pulse_angle;
 extern uint16_t rpm_val[];
+extern uint8_t is_change_period_step;
 
 #endif
 
