@@ -56,50 +56,48 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
  
 /*процедура плавного старта двигателя, для исключения пропуска шагов*/
 void motor_step_period_change(void){
-	 
-	pulse_angle.synchr = SYNCHR_ON;
-	HAL_TIM_Base_Start_IT(&htim1);
 	
-	if(current_rpm_val > rpm_val[current_cnt_encoder]){
+	if(is_change_period_step){		
 		
-		for(int i = current_rpm_val; i >= rpm_val[current_cnt_encoder]; i--){
-	 
-			freq = i;
-			HAL_Delay(1);
+		is_change_period_step = 0;
 		
+		uint16_t new_rpm_val = rpm[current_cnt_encoder];
+		
+		pulse_angle.synchr = SYNCHR_ON;
+	//	HAL_TIM_Base_Start_IT(&htim1);
+		
+		if(current_rpm_val > new_rpm_val){
+			
+			for(int i = current_rpm_val; i >= new_rpm_val; i--){
+		 
+				freq = i;
+				HAL_Delay(1);		
+				current_rpm_val--;
+				if(is_change_period_step)
+					break;			
+			}
+			
+		}else if(current_rpm_val < new_rpm_val){
+			
+			for(int i = current_rpm_val; i <= new_rpm_val; i++){
+		 
+				freq = i;
+				HAL_Delay(1);
+				current_rpm_val++;
+				if(is_change_period_step)
+					break;			
+			}
+			
 		}
-		
-	}else if(current_rpm_val < rpm_val[current_cnt_encoder]){
-		
-		for(int i = current_rpm_val; i <= rpm_val[current_cnt_encoder]; i--){
 	 
-			freq = i;
-			HAL_Delay(1);
-		
-		}
+		pulse_angle.synchr = SYNCHR_ON; 
 		
 	}
- 
-	pulse_angle.synchr = SYNCHR_ON; 
- 
+
 }
 
 
-
-/*процедура плавной остановки двигателя*/
-void motor_soft_stop(void){ 
-
-	for(int i = 1124; i <= 20000; i++){
-	 
-		freq = i;
-		HAL_Delay(1);
-		
-	}
-	
-	HAL_TIM_Base_Stop_IT(&htim1);;
  
-	
-}
 
  
 

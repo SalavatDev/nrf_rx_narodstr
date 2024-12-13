@@ -73,7 +73,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		if(is_rpm_editing){
 			
 			HAL_NVIC_DisableIRQ(EXTI3_IRQn);
-			HAL_TIM_Base_Stop_IT(&htim1);
+		//	HAL_TIM_Base_Stop_IT(&htim1);
 
 			HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);
 			
@@ -87,7 +87,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			
 		  HAL_TIM_Encoder_Stop_IT(&htim3, TIM_CHANNEL_ALL);
 			HAL_NVIC_EnableIRQ(EXTI3_IRQn);
-			HAL_TIM_Base_Start_IT(&htim1);
+			//HAL_TIM_Base_Start_IT(&htim1);
 			is_change_period_step = 1;
 			display_clear_text();
 			main_menu(); 
@@ -168,6 +168,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	HAL_TIM_Base_Start(&htim2);
 	
+	
 	if(RIGHT_DIR)
 		HAL_GPIO_WritePin(DIR_ROTATION_GPIO_Port, DIR_ROTATION_Pin, GPIO_PIN_SET);
 	else
@@ -179,7 +180,8 @@ int main(void)
 	main_menu(); 
 	NRF24_ini();
  
- 
+  HAL_TIM_Base_Start_IT(&htim1);
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -190,7 +192,7 @@ int main(void)
   while (1)
   {
 		
-		
+		motor_step_period_change();
 		/*
 		if(is_rpm_editing){
 			
