@@ -51,9 +51,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			NRF24_Read_Buf(RD_RX_PLOAD,RX_BUF,TX_PLOAD_WIDTH);
 			dt = *(uint16_t*)RX_BUF;
 		 
-			display_send_num((int)(dt & 0x0200), 1, 0, 1);
-			display_send_num((int)(dt & 0x1000), 1, 3, 1);
-			display_send_num((int)(dt & 0x2000), 1, 7, 1);
+			display_send_num(((dt & 0x0200)?1:0), 1, 0, 1);
+			display_send_num(((dt & 0x1000)?1:0), 1, 3, 1);
+			display_send_num(((dt & 0x2000)?1:0), 1, 7, 1);
 	 	 
 			dt = dt & 0x01ff;
 			dt = ((float)((float)dt / 512) * 360); 		 
@@ -172,7 +172,7 @@ int main(void)
 		HAL_GPIO_WritePin(DIR_ROTATION_GPIO_Port, DIR_ROTATION_Pin, GPIO_PIN_SET);
 	else
 		HAL_GPIO_WritePin(DIR_ROTATION_GPIO_Port, DIR_ROTATION_Pin, GPIO_PIN_RESET);
- 
+	
 	
 	LCD_HD44780_init();
   

@@ -146,8 +146,9 @@ void display_send_num(int num, uint8_t dig_num, uint8_t pos_x, uint8_t pos_y){
         display_send_char("0");
     }
     
+		++num_of_digits;
     char digit[num_of_digits];
-    snprintf(digit, ++num_of_digits, "%d", num);
+    snprintf(digit, num_of_digits, "%d", num);
     goto_xy(pos_x, pos_y);
     display_send_char(digit);
 }
