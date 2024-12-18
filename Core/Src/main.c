@@ -34,7 +34,7 @@
 /* USER CODE BEGIN PTD */
 
 union un_field_struct nrf_bits_field_rxdata;
-uint16_t dt=0;
+uint16_t dt=0, delta_angle=0;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
@@ -70,8 +70,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a9, 1, 0, 1);
 				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a12, 1, 2, 1);
 				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a13, 1, 5, 1);				
- 
-				display_send_num((int)dt, 4, 11, 1);
+				
+				delta_angle = (uint16_t)fabs(dt-pulse_angle.angle);
+				if(delta_angle <= 50) 
+					display_send_num((int)delta_angle, 4, 11, 1);
+				
  
 		}	
 		   
