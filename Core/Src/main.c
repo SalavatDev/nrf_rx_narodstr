@@ -72,7 +72,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a13, 1, 5, 1);				
 				
 				delta_angle = (uint16_t)fabs(dt-pulse_angle.angle);
-				if(delta_angle <= 50) 
+				if((dt < 358)&&(dt > 2)) 
 					display_send_num((int)delta_angle, 4, 11, 1);
 				
  
@@ -85,7 +85,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		if(is_rpm_editing){
 			
 			HAL_NVIC_DisableIRQ(EXTI3_IRQn);
-		//	HAL_TIM_Base_Stop_IT(&htim1);
+	 
 
 			HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);
 			
@@ -96,17 +96,17 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			
 			
 		}else{
-			
+			HAL_TIM_Base_Stop_IT(&htim1);
 		  HAL_TIM_Encoder_Stop_IT(&htim3, TIM_CHANNEL_ALL);
 			HAL_NVIC_EnableIRQ(EXTI3_IRQn);
-			//HAL_TIM_Base_Start_IT(&htim1);
+		  HAL_TIM_Base_Start_IT(&htim1);
 			is_change_period_step = 1;
 			display_clear_text();
 			main_menu(); 
 			
 		}
 		
-		DelayMicro(65000); DelayMicro(65000); DelayMicro(65000);
+		DelayMicro(65000); DelayMicro(65000);  DelayMicro(65000); DelayMicro(65000); 
 		 __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_10);
 		
 	}
@@ -196,7 +196,7 @@ int main(void)
 	
 	NRF24_ini();
  
-  HAL_TIM_Base_Start_IT(&htim1);
+  
 	
   /* USER CODE END 2 */
 
