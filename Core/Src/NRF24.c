@@ -3,10 +3,7 @@
 //------------------------------------------------
  
 //------------------------------------------------
-
-
  
-
 #define SPI_DATA_TYPE uint8_t
 
 #define	SPI_SOFT_SCK_Pin	GPIO_PIN_5	
@@ -23,8 +20,7 @@ uint8_t RX_BUF[TX_PLOAD_WIDTH] = {0};
  
 uint8_t ErrCnt_Fl = 0;
 /****************************************************/
- 
-
+  
 SPI_DATA_TYPE SPI_send_soft(SPI_DATA_TYPE data)
 {
   
@@ -225,11 +221,11 @@ uint8_t NRF24L01_Send(uint8_t *pBuf)
 }
 
 //------------------------------------------------
-char str1[64];
+//char str1[64];
 
-uint16_t dt=0;
 
- 
+
+ /*
 void NRF24L01_Receive(void)
 {
   uint8_t status=0x01;
@@ -249,7 +245,7 @@ void NRF24L01_Receive(void)
     NRF24_WriteReg(STATUS, 0x40);
   }	
 }
- 
+ */
 
 uint8_t isChipConnected(void)
 {

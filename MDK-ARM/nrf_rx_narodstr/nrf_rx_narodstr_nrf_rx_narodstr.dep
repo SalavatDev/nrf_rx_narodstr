@@ -1,8 +1,8 @@
 Dependencies for Project 'nrf_rx_narodstr', Target 'nrf_rx_narodstr': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (startup_stm32f103xb.s)(0x675971AE)(--cpu Cortex-M3 -g --apcs=interwork -I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include--pd "__UVISION_VERSION SETA 533" --pd "_RTE_ SETA 1" --pd "STM32F10X_MD SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f103xb.lst --xref -o nrf_rx_narodstr\startup_stm32f103xb.o --depend nrf_rx_narodstr\startup_stm32f103xb.d)
-F (..\Core\Src\NRF24.c)(0x67596A3B)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o nrf_rx_narodstr\nrf24.o --omf_browse nrf_rx_narodstr\nrf24.crf --depend nrf_rx_narodstr\nrf24.d)
-I (../Core/Inc/NRF24.h)(0x673C35D5)
+F (..\Core\Src\NRF24.c)(0x6762BA6E)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o nrf_rx_narodstr\nrf24.o --omf_browse nrf_rx_narodstr\nrf24.crf --depend nrf_rx_narodstr\nrf24.d)
+I (../Core/Inc/NRF24.h)(0x6762C209)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x672B5755)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x673DC20B)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x672B5755)
@@ -32,7 +32,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x672B5755)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E58E2)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E58E2)
-F (..\Core\Src\LCD_HD44780.c)(0x675BDF78)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o nrf_rx_narodstr\lcd_hd44780.o --omf_browse nrf_rx_narodstr\lcd_hd44780.crf --depend nrf_rx_narodstr\lcd_hd44780.d)
+F (..\Core\Src\LCD_HD44780.c)(0x6762D644)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o nrf_rx_narodstr\lcd_hd44780.o --omf_browse nrf_rx_narodstr\lcd_hd44780.crf --depend nrf_rx_narodstr\lcd_hd44780.d)
 I (../Core/Inc/LCD_HD44780.h)(0x6749625C)
 I (../Core/Inc/main.h)(0x675BDD69)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x672B5755)
@@ -63,10 +63,10 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x672B5755)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E58E2)
-I (../Core/Inc/NRF24.h)(0x673C35D5)
+I (../Core/Inc/NRF24.h)(0x6762C209)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E58E2)
 F (..\Core\Src\stepper_motor.c)(0x675C3126)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o nrf_rx_narodstr\stepper_motor.o --omf_browse nrf_rx_narodstr\stepper_motor.crf --depend nrf_rx_narodstr\stepper_motor.d)
-I (../Core/Inc/stepper_motor.h)(0x675C265C)
+I (../Core/Inc/stepper_motor.h)(0x675C3952)
 I (../Core/Inc/main.h)(0x675BDD69)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x672B5755)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x673DC20B)
@@ -95,10 +95,10 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x672B5755)
-I (../Core/Inc/NRF24.h)(0x673C35D5)
+I (../Core/Inc/NRF24.h)(0x6762C209)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E58E2)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E58E2)
-F (../Core/Src/main.c)(0x675C1CF0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o nrf_rx_narodstr\main.o --omf_browse nrf_rx_narodstr\main.crf --depend nrf_rx_narodstr\main.d)
+F (../Core/Src/main.c)(0x6762D644)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o nrf_rx_narodstr\main.o --omf_browse nrf_rx_narodstr\main.crf --depend nrf_rx_narodstr\main.d)
 I (../Core/Inc/main.h)(0x675BDD69)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x672B5755)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x673DC20B)
@@ -130,11 +130,11 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x672B5755)
 I (../Core/Inc/i2c.h)(0x67357895)
 I (../Core/Inc/tim.h)(0x6747096A)
 I (../Core/Inc/gpio.h)(0x673331BB)
-I (../Core/Inc/NRF24.h)(0x673C35D5)
+I (../Core/Inc/NRF24.h)(0x6762C209)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E58E2)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E58E2)
 I (../Core/Inc/LCD_HD44780.h)(0x6749625C)
-I (../Core/Inc/stepper_motor.h)(0x675C265C)
+I (../Core/Inc/stepper_motor.h)(0x675C3952)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5E8E58E2)
 F (../Core/Src/gpio.c)(0x675ACCDB)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o nrf_rx_narodstr\gpio.o --omf_browse nrf_rx_narodstr\gpio.crf --depend nrf_rx_narodstr\gpio.d)
 I (../Core/Inc/gpio.h)(0x673331BB)
@@ -166,7 +166,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x672B5755)
-I (../Core/Inc/stepper_motor.h)(0x675C265C)
+I (../Core/Inc/stepper_motor.h)(0x675C3952)
 F (../Core/Src/i2c.c)(0x67357895)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o nrf_rx_narodstr\i2c.o --omf_browse nrf_rx_narodstr\i2c.crf --depend nrf_rx_narodstr\i2c.d)
 I (../Core/Inc/i2c.h)(0x67357895)
 I (../Core/Inc/main.h)(0x675BDD69)
@@ -257,10 +257,10 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x672B5755)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x672B5755)
 I (../Core/Inc/stm32f1xx_it.h)(0x675971AD)
-I (../Core/Inc/NRF24.h)(0x673C35D5)
+I (../Core/Inc/NRF24.h)(0x6762C209)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5E8E58E2)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E8E58E2)
-I (../Core/Inc/stepper_motor.h)(0x675C265C)
+I (../Core/Inc/stepper_motor.h)(0x675C3952)
 I (../Core/Inc/LCD_HD44780.h)(0x6749625C)
 F (../Core/Src/stm32f1xx_hal_msp.c)(0x673331BB)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_nrf_rx_narodstr-IC:\Users\Karisal\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Karisal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o nrf_rx_narodstr\stm32f1xx_hal_msp.o --omf_browse nrf_rx_narodstr\stm32f1xx_hal_msp.crf --depend nrf_rx_narodstr\stm32f1xx_hal_msp.d)
 I (../Core/Inc/main.h)(0x675BDD69)

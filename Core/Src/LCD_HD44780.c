@@ -90,8 +90,8 @@ void display_clear(void){
 
 void display_clear_text(void){
 	
-	char tmpstr[16]={"               "};
-	tmpstr[15] = '\0';
+	char tmpstr[17]={"                "};
+	tmpstr[16] = '\0';
 	
 	goto_xy(0, 0);   
 	display_send_char(tmpstr); 
@@ -182,25 +182,33 @@ void cursor_settings(uint8_t cursor, uint8_t blink){
 
 }
 
+uint8_t first_show_maim_menu = 0;
 void start_screen(void){
+	
+	first_show_maim_menu = 0;
   goto_xy(0, 0);
+  display_send_char("Baker Hughes");
+  goto_xy(0, 1);
   display_send_char("Rotaition tester");
-  goto_xy(4, 1);
-  display_send_char("TECHOFS");
+	HAL_Delay(3000);
+	
 }
+
+
 
 void main_menu(void){
 	
 	goto_xy(0, 0);
-	display_send_char("9B");
+	display_send_char("9");
 	
-	goto_xy(3, 0);	
-	display_send_char("12B");
+	goto_xy(2, 0);
+	display_send_char("12");
+ 
 	
-	goto_xy(7, 0);	
-	display_send_char("13B");
+	goto_xy(5, 0);	
+	display_send_char("13");
 	
-	goto_xy(12, 0);	
+	goto_xy(11, 0);	
 	display_send_char("D");
 	
 }

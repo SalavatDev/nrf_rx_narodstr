@@ -5,6 +5,32 @@
 #include <stdio.h>
 #include <string.h>
 
+union  un_field_struct{
+  
+  uint16_t rx_result_word;
+  
+  struct{
+    
+    unsigned a0:1;
+    unsigned a1:1;
+    unsigned a2:1;
+    unsigned a3:1;
+    unsigned a4:1;
+    unsigned a5:1;
+    unsigned a6:1;
+    unsigned a7:1;
+    unsigned a8:1;
+    unsigned a9:1;
+    unsigned a10:1;
+    unsigned a11:1;
+    unsigned a12:1;
+    unsigned a13:1;
+    unsigned a14:1;
+    unsigned a15:1;
+    
+  }bits_fld;
+  
+}; 
 
 #define TX_ADR_WIDTH 3
 #define TX_PLOAD_WIDTH 2
@@ -67,7 +93,8 @@ void NRF24L01_Receive(void);
 void DelayMicro(__IO uint32_t us);
 uint8_t isChipConnected(void);
 void NRF24_WriteReg(uint8_t addr, uint8_t dt);
-extern uint16_t dt;
+ 
+extern uint8_t first_show_maim_menu ; 
 extern uint8_t RX_BUF[] ;
 //------------------------------------------------
 #endif /* NRF24_H_ */

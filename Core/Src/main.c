@@ -33,7 +33,9 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
- 
+union un_field_struct nrf_bits_field_rxdata;
+uint16_t dt=0;
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   
@@ -49,21 +51,28 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			
 			NRF24_WriteReg(STATUS, 0x40);
 			NRF24_Read_Buf(RD_RX_PLOAD,RX_BUF,TX_PLOAD_WIDTH);
-			dt = *(uint16_t*)RX_BUF;
-		 
-			display_send_num(((dt & 0x0200)?1:0), 1, 0, 1);
-			display_send_num(((dt & 0x1000)?1:0), 1, 3, 1);
-			display_send_num(((dt & 0x2000)?1:0), 1, 7, 1);
-	 	 
-			dt = dt & 0x01ff;
-			dt = ((float)((float)dt / 512) * 360); 		 
-			if(pulse_angle.synchr){				
-				pulse_angle.synchr = SYNCHR_OFF;
-				pulse_angle.angle = (float)dt;
-			}
+			nrf_bits_field_rxdata.rx_result_word = (uint16_t)(*((uint16_t*)RX_BUF));
 			
-			display_send_num((int)dt, 4, 12, 1);
-			
+				 
+				dt = nrf_bits_field_rxdata.rx_result_word & 0x01ff;
+				dt = ((float)((float)dt / 512) * 360); 		 
+				if(pulse_angle.synchr){				
+					pulse_angle.synchr = SYNCHR_OFF;
+					pulse_angle.angle = (float)dt;
+				}
+				
+				if(!first_show_maim_menu){
+					
+					first_show_maim_menu = 1;					
+				}
+				
+			 
+				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a9, 1, 0, 1);
+				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a12, 1, 2, 1);
+				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a13, 1, 5, 1);				
+ 
+				display_send_num((int)dt, 4, 11, 1);
+ 
 		}	
 		   
 	}else if(GPIO_Pin	== GPIO_PIN_10){
@@ -177,7 +186,11 @@ int main(void)
 	
 	LCD_HD44780_init();
   
-	main_menu(); 
+	//main_menu(); 
+	start_screen();
+	display_clear_text();
+	main_menu();
+	
 	NRF24_ini();
  
   HAL_TIM_Base_Start_IT(&htim1);
