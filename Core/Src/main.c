@@ -96,6 +96,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			
 			
 		}else{
+			
 			HAL_TIM_Base_Stop_IT(&htim1);
 		  HAL_TIM_Encoder_Stop_IT(&htim3, TIM_CHANNEL_ALL);
 			HAL_NVIC_EnableIRQ(EXTI3_IRQn);
@@ -188,6 +189,7 @@ int main(void)
 	
 	
 	LCD_HD44780_init();
+	display_backligt(ENABLE);
   
 	//main_menu(); 
 	start_screen();
@@ -196,8 +198,7 @@ int main(void)
 	
 	NRF24_ini();
  
-  
-	
+ 
   /* USER CODE END 2 */
 
   /* Infinite loop */
