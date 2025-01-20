@@ -33,10 +33,11 @@ enum {
 
  
 void motor_step_period_change(void);
+void DelayPeriodStep(__IO uint32_t us);
 extern uint8_t is_rpm_editing;
 extern uint8_t current_cnt_encoder;
 extern tim_count pulse_angle;
-extern uint16_t rpm_val[];
+extern const uint16_t rpm_val[];
 extern uint8_t is_change_period_step;
 
 #endif

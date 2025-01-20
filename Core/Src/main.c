@@ -72,7 +72,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a13, 1, 5, 1);				
 				
 				delta_angle = (uint16_t)fabs(dt-pulse_angle.angle);
-				if((dt < 358)&&(dt > 2)) 
+				if((dt < 356)&&(dt > 3)) 
 					display_send_num((int)delta_angle, 4, 11, 1);
 				
  
@@ -84,8 +84,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		
 		if(is_rpm_editing){
 			
-			HAL_NVIC_DisableIRQ(EXTI3_IRQn);
-	 
+			HAL_NVIC_DisableIRQ(EXTI3_IRQn);	 
 
 			HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);
 			
@@ -178,9 +177,10 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM1_Init();
   MX_TIM3_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
 	HAL_TIM_Base_Start(&htim2);
-	
+	HAL_TIM_Base_Start(&htim4);
 	
 	if(RIGHT_DIR)
 		HAL_GPIO_WritePin(DIR_ROTATION_GPIO_Port, DIR_ROTATION_Pin, GPIO_PIN_SET);
@@ -189,7 +189,7 @@ int main(void)
 	
 	
 	LCD_HD44780_init();
-	display_backligt(ENABLE);
+	
   
 	//main_menu(); 
 	start_screen();
@@ -216,9 +216,9 @@ int main(void)
 		}*/
 	 /*
 	 	GPIOB->BSRR = GPIO_PIN_0;
-		DelayMicro(156);
+		DelayPeriodStep(157);
 		GPIOB->BRR = GPIO_PIN_0;
-		DelayMicro(156); 
+		DelayPeriodStep(157); 
  */
     /* USER CODE END WHILE */
 

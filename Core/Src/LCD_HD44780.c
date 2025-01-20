@@ -50,6 +50,9 @@ void LCD_HD44780_init(void){
     display_on_off(ON);
 		HAL_Delay(50);
 		cursor_settings(cursor_off, blink_off);
+		
+		HAL_Delay(1);
+		display_backligt(ENABLE);
 
 }
 
@@ -101,6 +104,7 @@ void display_clear_text(void){
 	
 	
 }
+
 
 void display_backligt(uint8_t on_off){
     if(on_off){
@@ -187,7 +191,7 @@ void start_screen(void){
 	
 	first_show_maim_menu = 0;
   goto_xy(0, 0);
-  display_send_char("Baker Hughes");
+  display_send_char("Bashkir Hughes");
   goto_xy(0, 1);
   display_send_char("Rotaition tester");
 	HAL_Delay(3000);
