@@ -34,12 +34,11 @@
 /* USER CODE BEGIN PTD */
 
 union un_field_struct nrf_bits_field_rxdata;
-uint16_t dt=0, delta_angle=0;
+uint16_t dt=0, delta_angle = 0, delta_angle_max = 0;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   
- 
 	if(GPIO_Pin	== IRQ_PIN)
 	{
 		
@@ -56,9 +55,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				 
 				dt = nrf_bits_field_rxdata.rx_result_word & 0x01ff;
 				dt = ((float)((float)dt / 512) * 360); 		 
+			
 				if(pulse_angle.synchr){				
 					pulse_angle.synchr = SYNCHR_OFF;
 					pulse_angle.angle = (float)dt;
+					delta_angle_max = 0;
 				}
 				
 				if(!first_show_maim_menu){
@@ -66,25 +67,55 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 					first_show_maim_menu = 1;					
 				}
 				
-			 
+  
+				 
 				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a9, 1, 0, 1);
 				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a12, 1, 2, 1);
 				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a13, 1, 5, 1);				
 				
-				delta_angle = (uint16_t)fabs(dt-pulse_angle.angle);
-				if((dt < 356)&&(dt > 3)) 
-					display_send_num((int)delta_angle, 4, 11, 1);
+ 	      if(((dt > 0.0) && (dt < 180.0) && (quarter_reciver == FIRST_SECOND_QUARTER))||((dt >= 180.0) && (dt < 360.0) && (quarter_reciver == THIRD_FOURTH_QUARTER))){
+					
+				 delta_angle = (uint16_t)fabs(dt-pulse_angle.angle);
 				
+				if(show_max_delta_angle){
+						
+						if(delta_angle_max < delta_angle)							
+							delta_angle_max = delta_angle;
+					
+					  display_send_num((int)delta_angle, 4, 9, 1);
+					  display_send_num((int)delta_angle_max, 4, 13, 1);		
+						
+					}
+										
+				}
+ 	
+				
+      
+			 
+			if(is_rpm_editing){
+				
+				display_clear_text();
+				goto_xy(0, 0);
+				display_send_char("RPM");			 			 
+				display_send_num((int)rpm_val[current_cnt_encoder], 3, 0, 1);
+				
+			}
  
 		}	
 		   
 	}else if(GPIO_Pin	== GPIO_PIN_10){
 		
+	 
+		
+		HAL_NVIC_DisableIRQ(EXTI3_IRQn);
+		HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+		
+		show_max_delta_angle = DISABLE;
 		is_rpm_editing = (!is_rpm_editing);
 		
 		if(is_rpm_editing){
 			
-			HAL_NVIC_DisableIRQ(EXTI3_IRQn);	 
+				 
 
 			HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);
 			
@@ -96,18 +127,29 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			
 		}else{
 			
-			HAL_TIM_Base_Stop_IT(&htim1);
+			 
 		  HAL_TIM_Encoder_Stop_IT(&htim3, TIM_CHANNEL_ALL);
-			HAL_NVIC_EnableIRQ(EXTI3_IRQn);
-		  HAL_TIM_Base_Start_IT(&htim1);
-			is_change_period_step = 1;
+			
+		   
+			change_period_step = ENABLE;
 			display_clear_text();
 			main_menu(); 
 			
+			if(!if_first_start_tim){
+				HAL_TIM_Base_Start_IT(&htim1);
+				if_first_start_tim = NO;
+			}
+			
+			HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+			
 		}
 		
+		 
 		DelayMicro(65000); DelayMicro(65000);  DelayMicro(65000); DelayMicro(65000); 
 		 __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_10);
+		HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+		
+		 
 		
 	}
 	 
@@ -197,8 +239,8 @@ int main(void)
 	main_menu();
 	
 	NRF24_ini();
- 
- 
+  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -209,6 +251,7 @@ int main(void)
   while (1)
   {
 		
+
 		motor_step_period_change();
 		/*
 		if(is_rpm_editing){

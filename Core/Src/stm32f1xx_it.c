@@ -261,10 +261,19 @@ void TIM3_IRQHandler(void)
 	 
   rd_cnt_encoder = (int16_t)TIM3->CNT;
 	
+/*
+	if(is_rpm_editing){
 		
+			display_clear_text();
+			goto_xy(0, 0);
+			display_send_char("RPM");		
+			is_rpm_editing = 0;
+		
+	}*/
 	display_send_num((int)rpm_val[current_cnt_encoder], 3, 0, 1);
   DelayMicro(65000); DelayMicro(65000);
 	HAL_TIM_IRQHandler(&htim3);	
+	
 	 
   /* USER CODE END TIM3_IRQn 1 */
 }

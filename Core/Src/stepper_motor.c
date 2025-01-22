@@ -22,8 +22,12 @@ uint16_t current_rpm_val = RPM_1;
 uint8_t current_cnt_encoder = 0;
 uint8_t is_rpm_editing = 0;
 
-uint8_t is_change_period_step = 0;
+uint8_t quarter_reciver = FIRST_SECOND_QUARTER;
+ 
 
+uint8_t change_period_step = DISABLE;
+uint8_t if_first_start_tim = YES;
+uint8_t show_max_delta_angle = DISABLE;
 
 void DelayPeriodStep(__IO uint32_t us)
 {
@@ -45,6 +49,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 				{
 					pulse_angle.angle = 0.0;			 
 				}		
+					
 				pulse_angle.angle += 0.05625;
 			
 			}else{
@@ -52,9 +57,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 				if(pulse_angle.angle <= 0.0) 
 				{
 					pulse_angle.angle = 360.0;			 
-				}		
+				}	
+				
 				pulse_angle.angle -= 0.05625;
 			
+		}
+		
+		if((pulse_angle.angle > 0.0)&&(pulse_angle.angle < 180.0)){
+			quarter_reciver = FIRST_SECOND_QUARTER;
+		}else{
+			quarter_reciver = THIRD_FOURTH_QUARTER;
 		}
 		
 		HAL_GPIO_TogglePin(STEPPER_GPIO_Port, STEPPER_Pin);
@@ -65,9 +77,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 /*процедура плавного старта двигателя, для исключения пропуска шагов*/
 void motor_step_period_change(void){
 	
-	if(is_change_period_step){		
+	if(change_period_step){		
 		
-		is_change_period_step = 0;
+		change_period_step = DISABLE;
 		
 		uint16_t new_rpm_val = rpm[current_cnt_encoder];
 		
@@ -79,18 +91,22 @@ void motor_step_period_change(void){
 			for(uint32_t i = current_rpm_val; i >= new_rpm_val; i--){
 		 
 				freq = i;
-				
+				/*
 				if(i > RPM_15){					
 					DelayPeriodStep(300);					
 				}else if(i > RPM_60){					
-					DelayPeriodStep(1700);					
+					DelayPeriodStep(7900);					
 				}else{
 					DelayPeriodStep(15700);
 				}
-				
+				*/
+				DelayPeriodStep((uint32_t)((float)1/i * (float)10000000));	
 				current_rpm_val--;
-				if(is_change_period_step)
-					break;			
+				if(change_period_step){
+					show_max_delta_angle = DISABLE;
+					break;					
+				}
+				
 			}
 			
 		}else if(current_rpm_val < new_rpm_val){
@@ -98,23 +114,28 @@ void motor_step_period_change(void){
 			for(uint32_t i = current_rpm_val; i <= new_rpm_val; i++){
 		 
 				freq = i;
-				
+				/*
 				if(i > RPM_15){					
 					DelayPeriodStep(300);					
-				}else if(i > RPM_60){					
-					DelayPeriodStep(1700);					
-				}else{
-					DelayPeriodStep(15700);
+				}else if((i > RPM_60) && (i <= RPM_15)){					
+					DelayPeriodStep(7900);					
+				}else {
+					DelayPeriodStep(17000);
 				}
-					
+					*/
+			 DelayPeriodStep((uint32_t)((float)1/i * (float)10000000));
 				current_rpm_val++;
-				if(is_change_period_step)
-					break;			
+				if(change_period_step){
+					show_max_delta_angle = DISABLE;
+					break;					
+				}
+				
 			}
 			
 		}
 	 
 		pulse_angle.synchr = SYNCHR_ON; 
+		show_max_delta_angle = ENABLE;
 		
 	}
 

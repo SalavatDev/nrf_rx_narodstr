@@ -13,7 +13,7 @@ uint8_t i2c_data;
 uint8_t backlight_status;
 uint8_t rs_status;
 extern I2C_HandleTypeDef hi2c1;
-
+ 
 
 /*инициазизация дисплея*/
 void LCD_HD44780_init(void){
@@ -191,7 +191,7 @@ void start_screen(void){
 	
 	first_show_maim_menu = 0;
   goto_xy(0, 0);
-  display_send_char("Bashkir Hughes");
+  display_send_char("OFS Technologes");
   goto_xy(0, 1);
   display_send_char("Rotaition tester");
 	HAL_Delay(3000);
@@ -212,8 +212,11 @@ void main_menu(void){
 	goto_xy(5, 0);	
 	display_send_char("13");
 	
-	goto_xy(11, 0);	
+	goto_xy(9, 0);	
 	display_send_char("D");
+	
+	goto_xy(12, 0);	
+	display_send_char("Dmax");
 	
 }
 
