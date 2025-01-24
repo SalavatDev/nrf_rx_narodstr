@@ -55,7 +55,7 @@
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-int16_t rd_cnt_encoder = 0;
+
 
 /* USER CODE END 0 */
 
@@ -242,39 +242,9 @@ void TIM3_IRQHandler(void)
   /* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
-  
+ 
 	
-	//display_send_num((int)timout_encoder, 6, 0, 1);
-	
-	if(rd_cnt_encoder < (int16_t)TIM3->CNT){
-		
-		if(current_cnt_encoder < 5)
-			current_cnt_encoder++;
-			
-	}else if(rd_cnt_encoder > (int16_t)TIM3->CNT){
-	 
-		if(current_cnt_encoder > 0)
-			current_cnt_encoder--;
-		
-	}
-	
-	 
-  rd_cnt_encoder = (int16_t)TIM3->CNT;
-	
-/*
-	if(is_rpm_editing){
-		
-			display_clear_text();
-			goto_xy(0, 0);
-			display_send_char("RPM");		
-			is_rpm_editing = 0;
-		
-	}*/
-	display_send_num((int)rpm_val[current_cnt_encoder], 3, 0, 1);
-  DelayMicro(65000); DelayMicro(65000);
-	HAL_TIM_IRQHandler(&htim3);	
-	
-	 
+
   /* USER CODE END TIM3_IRQn 1 */
 }
 

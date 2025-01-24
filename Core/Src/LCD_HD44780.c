@@ -6,8 +6,7 @@
 
 
 #include "LCD_HD44780.h"
-#include <stdio.h>
-#include "NRF24.h"
+
 
 uint8_t i2c_data;
 uint8_t backlight_status;
@@ -186,10 +185,10 @@ void cursor_settings(uint8_t cursor, uint8_t blink){
 
 }
 
-uint8_t first_show_maim_menu = 0;
+ 
+
 void start_screen(void){
-	
-	first_show_maim_menu = 0;
+ 
   goto_xy(0, 0);
   display_send_char("OFS Technologes");
   goto_xy(0, 1);
@@ -200,6 +199,9 @@ void start_screen(void){
 
 
 
+
+
+ 
 void main_menu(void){
 	
 	goto_xy(0, 0);

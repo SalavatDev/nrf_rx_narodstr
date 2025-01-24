@@ -1,20 +1,7 @@
 
 #include "NRF24.h"
-//------------------------------------------------
  
-//------------------------------------------------
  
-#define SPI_DATA_TYPE uint8_t
-
-#define	SPI_SOFT_SCK_Pin	GPIO_PIN_5	
-#define	SPI_SOFT_SDI_Pin	GPIO_PIN_6
-#define	SPI_SOFT_SDO_Pin	GPIO_PIN_7
-
-#define	SPI_SOFT_SDI_GPIO_Port	GPIOA
-#define	SPI_SOFT_SCK_GPIO_Port	GPIOA
-#define	SPI_SOFT_SDO_GPIO_Port 	GPIOA
-
-
 uint8_t TX_ADDRESS[TX_ADR_WIDTH] = {0xb3,0xb4,0x01};
 uint8_t RX_BUF[TX_PLOAD_WIDTH] = {0};
  
@@ -43,10 +30,7 @@ SPI_DATA_TYPE SPI_send_soft(SPI_DATA_TYPE data)
     DelayMicro(1);   
     SPI_SOFT_SCK_GPIO_Port->BRR = SPI_SOFT_SCK_Pin; 
 		DelayMicro(1);
- 
- 
-				
-         
+     
     data <<= 1;
 		
   }  
@@ -245,8 +229,9 @@ void NRF24L01_Receive(void)
     NRF24_WriteReg(STATUS, 0x40);
   }	
 }
- */
-
+ */ 
+ 
+/*
 uint8_t isChipConnected(void)
 {
 	uint8_t setup = NRF24_ReadReg(SETUP_AW);
@@ -258,9 +243,10 @@ uint8_t isChipConnected(void)
 
 	return 0;
 }
+*/
 
 //------------------------------------------------
-void NRF24_ini(void)
+void Nrf24Init(void)
 {
 	CE_RESET;
   DelayMicro(5000);

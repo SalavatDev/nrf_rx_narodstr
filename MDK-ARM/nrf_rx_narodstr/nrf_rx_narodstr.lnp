@@ -9,6 +9,8 @@
 "nrf_rx_narodstr\tim.o"
 "nrf_rx_narodstr\stm32f1xx_it.o"
 "nrf_rx_narodstr\stm32f1xx_hal_msp.o"
+"nrf_rx_narodstr\app_lev_stend.o"
+"nrf_rx_narodstr\encoder.o"
 "nrf_rx_narodstr\stm32f1xx_hal_gpio_ex.o"
 "nrf_rx_narodstr\stm32f1xx_hal_i2c.o"
 "nrf_rx_narodstr\stm32f1xx_hal.o"

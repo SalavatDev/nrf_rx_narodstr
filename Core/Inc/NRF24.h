@@ -7,7 +7,7 @@
 
 union  un_field_struct{
   
-  uint16_t rx_result_word;
+uint16_t rx_result_word;
   
   struct{
     
@@ -32,10 +32,25 @@ union  un_field_struct{
   
 }; 
 
+
 #define TX_ADR_WIDTH 3
 #define TX_PLOAD_WIDTH 2
 
-//------------------------------------------------
+#define	START_TIM_DELAY_NRF		HAL_TIM_Base_Start(&htim2) 
+
+
+//------------Gpio config spi-------------
+#define SPI_DATA_TYPE uint8_t
+
+#define	SPI_SOFT_SCK_Pin	GPIO_PIN_5	
+#define	SPI_SOFT_SDI_Pin	GPIO_PIN_6
+#define	SPI_SOFT_SDO_Pin	GPIO_PIN_7
+
+#define	SPI_SOFT_SDI_GPIO_Port	GPIOA
+#define	SPI_SOFT_SCK_GPIO_Port	GPIOA
+#define	SPI_SOFT_SDO_GPIO_Port 	GPIOA
+
+//------------------Gpio config nrf---------------------------
 #define CS_GPIO_PORT GPIOA
 #define CS_PIN GPIO_PIN_4
 #define CS_ON HAL_GPIO_WritePin(CS_GPIO_PORT, CS_PIN, GPIO_PIN_RESET)
@@ -45,14 +60,19 @@ union  un_field_struct{
 #define CE_RESET HAL_GPIO_WritePin(CE_GPIO_PORT, CE_PIN, GPIO_PIN_RESET)
 #define CE_SET HAL_GPIO_WritePin(CE_GPIO_PORT, CE_PIN, GPIO_PIN_SET)
 #define IRQ_GPIO_PORT GPIOA
-#define IRQ_PIN GPIO_PIN_3
-#define IRQ HAL_GPIO_ReadPin(IRQ_GPIO_PORT, IRQ_PIN)
+#define IRQ_PIN_NRF GPIO_PIN_3
+#define IRQ HAL_GPIO_ReadPin(IRQ_GPIO_PORT, IRQ_PIN_NRF)
 #define LED_GPIO_PORT GPIOB
 #define LED_PIN GPIO_PIN_0
 #define LED_ON HAL_GPIO_WritePin(LED_GPIO_PORT, LED_PIN, GPIO_PIN_SET)
 #define LED_OFF HAL_GPIO_WritePin(LED_GPIO_PORT, LED_PIN, GPIO_PIN_RESET)
-//#define LED_TGL HAL_GPIO_TogglePin(LED_GPIO_PORT, LED_PIN)
-//------------------------------------------------
+#define EXTI_IRQ_NRF EXTI3_IRQn
+
+
+#define ENABLE_IT_EXTI_IRQ_NRF	HAL_NVIC_EnableIRQ(EXTI_IRQ_NRF) 
+#define	DISABLE_IT_EXTI_IRQ_NRF	HAL_NVIC_DisableIRQ(EXTI_IRQ_NRF) 
+
+//-----------------NRF24 REGISTERS-------------------------
 #define ACTIVATE 0x50 //
 #define RD_RX_PLOAD 0x61 // Define RX payload register address
 #define WR_TX_PLOAD 0xA0 // Define TX payload register address
@@ -85,13 +105,14 @@ union  un_field_struct{
 //------------------------------------------------
 #define W_REGISTER 0x20 //запись в регистр
 //------------------------------------------------
-void NRF24_ini(void);
+
+void Nrf24Init(void);
 uint8_t NRF24_ReadReg(uint8_t addr);
 void NRF24_Read_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes);
-uint8_t NRF24L01_Send(uint8_t *pBuf);
-void NRF24L01_Receive(void);
+//uint8_t NRF24L01_Send(uint8_t *pBuf);
+//void NRF24L01_Receive(void);
 void DelayMicro(__IO uint32_t us);
-uint8_t isChipConnected(void);
+//uint8_t isChipConnected(void);
 void NRF24_WriteReg(uint8_t addr, uint8_t dt);
  
 extern uint8_t first_show_maim_menu ; 

@@ -24,139 +24,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "NRF24.h"
-#include "LCD_HD44780.h"
-#include "stepper_motor.h"
-#include 	<math.h>
+#include "app_lev_stend.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
-union un_field_struct nrf_bits_field_rxdata;
-uint16_t dt=0, delta_angle = 0, delta_angle_max = 0;
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  
-	if(GPIO_Pin	== IRQ_PIN)
-	{
-		
-		uint8_t status = NRF24_ReadReg(STATUS);
-		DelayMicro(10);
-		status = NRF24_ReadReg(STATUS);
-		if(status & 0x40)
-		{
-			
-			NRF24_WriteReg(STATUS, 0x40);
-			NRF24_Read_Buf(RD_RX_PLOAD,RX_BUF,TX_PLOAD_WIDTH);
-			nrf_bits_field_rxdata.rx_result_word = (uint16_t)(*((uint16_t*)RX_BUF));
-			
-				 
-				dt = nrf_bits_field_rxdata.rx_result_word & 0x01ff;
-				dt = ((float)((float)dt / 512) * 360); 		 
-			
-				if(pulse_angle.synchr){				
-					pulse_angle.synchr = SYNCHR_OFF;
-					pulse_angle.angle = (float)dt;
-					delta_angle_max = 0;
-				}
-				
-				if(!first_show_maim_menu){
-					
-					first_show_maim_menu = 1;					
-				}
-				
-  
-				 
-				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a9, 1, 0, 1);
-				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a12, 1, 2, 1);
-				display_send_num((int)nrf_bits_field_rxdata.bits_fld.a13, 1, 5, 1);				
-				
- 	      if(((dt > 0.0) && (dt < 180.0) && (quarter_reciver == FIRST_SECOND_QUARTER))||((dt >= 180.0) && (dt < 360.0) && (quarter_reciver == THIRD_FOURTH_QUARTER))){
-					
-				 delta_angle = (uint16_t)fabs(dt-pulse_angle.angle);
-				
-				if(show_max_delta_angle){
-						
-						if(delta_angle_max < delta_angle)							
-							delta_angle_max = delta_angle;
-					
-					  display_send_num((int)delta_angle, 4, 9, 1);
-					  display_send_num((int)delta_angle_max, 4, 13, 1);		
-						
-					}
-										
-				}
- 	
-				
-      
-			 
-			if(is_rpm_editing){
-				
-				display_clear_text();
-				goto_xy(0, 0);
-				display_send_char("RPM");			 			 
-				display_send_num((int)rpm_val[current_cnt_encoder], 3, 0, 1);
-				
-			}
  
-		}	
-		   
-	}else if(GPIO_Pin	== GPIO_PIN_10){
-		
-	 
-		
-		HAL_NVIC_DisableIRQ(EXTI3_IRQn);
-		HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
-		
-		show_max_delta_angle = DISABLE;
-		is_rpm_editing = (!is_rpm_editing);
-		
-		if(is_rpm_editing){
-			
-				 
-
-			HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);
-			
-			display_clear_text();
-			goto_xy(0, 0);
-			display_send_char("RPM");			 			 
-			display_send_num((int)rpm_val[current_cnt_encoder], 3, 0, 1);
-			
-			
-		}else{
-			
-			 
-		  HAL_TIM_Encoder_Stop_IT(&htim3, TIM_CHANNEL_ALL);
-			
-		   
-			change_period_step = ENABLE;
-			display_clear_text();
-			main_menu(); 
-			
-			if(!if_first_start_tim){
-				HAL_TIM_Base_Start_IT(&htim1);
-				if_first_start_tim = NO;
-			}
-			
-			HAL_NVIC_EnableIRQ(EXTI3_IRQn);
-			
-		}
-		
-		 
-		DelayMicro(65000); DelayMicro(65000);  DelayMicro(65000); DelayMicro(65000); 
-		 __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_10);
-		HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-		
-		 
-		
-	}
-	 
-	
-}
- 
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -221,48 +94,20 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
-	HAL_TIM_Base_Start(&htim2);
-	HAL_TIM_Base_Start(&htim4);
-	
-	if(RIGHT_DIR)
-		HAL_GPIO_WritePin(DIR_ROTATION_GPIO_Port, DIR_ROTATION_Pin, GPIO_PIN_SET);
-	else
-		HAL_GPIO_WritePin(DIR_ROTATION_GPIO_Port, DIR_ROTATION_Pin, GPIO_PIN_RESET);
-	
-	
-	LCD_HD44780_init();
-	
-  
-	//main_menu(); 
-	start_screen();
-	display_clear_text();
-	main_menu();
-	
-	NRF24_ini();
-  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
-	
+  init_stend();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	
-  
-	
   while (1)
   {
-		
-
-		motor_step_period_change();
-		/*
-		if(is_rpm_editing){
-			
-		}*/
-	 /*
+ 	 /*
 	 	GPIOB->BSRR = GPIO_PIN_0;
 		DelayPeriodStep(157);
 		GPIOB->BRR = GPIO_PIN_0;
 		DelayPeriodStep(157); 
  */
+		motor_step_period_change();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

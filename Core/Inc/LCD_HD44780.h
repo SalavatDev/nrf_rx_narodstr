@@ -2,6 +2,9 @@
 #define LCD_HD44780_H_
 
 #include "main.h"
+#include <stdio.h>
+#include "NRF24.h"
+
 
 #define LCD_ADDRESS                    0x4E
 #define I2C_TIMEOUT                    100
