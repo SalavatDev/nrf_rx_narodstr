@@ -67,12 +67,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 
  
 /*процедура плавного старта двигателя, для исключения пропуска шагов*/
+ 
 void motor_step_period_change(uint16_t new_rpm_val, uint16_t *current_rpm_val){
 	
 	if(change_period_step){		
-		
+ 
+		show_delta_angle = DISABLE;
 		change_period_step = DISABLE;
-		
 		uint16_t new_rpm_val_ = new_rpm_val;	  
 		
 		pulse_angle.synchr = SYNCHR_ON;
@@ -84,8 +85,7 @@ void motor_step_period_change(uint16_t new_rpm_val, uint16_t *current_rpm_val){
 		 
 				freq = i; 
 				DelayPeriodStepMks((uint32_t)((float)1/i * (float)10000000));		
-				if(change_period_step){
-					show_delta_angle = DISABLE;
+				if(change_period_step){					
 					break;					
 				}
 				
@@ -113,8 +113,7 @@ void motor_step_period_change(uint16_t new_rpm_val, uint16_t *current_rpm_val){
 	 
 					DelayPeriodStepMks((uint32_t)((float)1/i * (float)10000000));	
 					(*current_rpm_val)--;
-					if(change_period_step){
-						show_delta_angle = DISABLE;
+					if(change_period_step){					
 						break;					
 					}
 					
@@ -129,8 +128,7 @@ void motor_step_period_change(uint16_t new_rpm_val, uint16_t *current_rpm_val){
 	 
 				 DelayPeriodStepMks((uint32_t)((float)1/i * (float)10000000));
 					(*current_rpm_val)++;
-					if(change_period_step){
-						show_delta_angle = DISABLE;
+					if(change_period_step){						
 						break;					
 					}
 					

@@ -267,7 +267,8 @@ void NrfRxCallbackHandler(void){
 			dt = ((float)((float)dt / 512) * 360); 		 
 			
 
-			SynchrAngle(); 				 
+			SynchrAngle(); 
+      	
 			ShowAngleBitStat(); 	
   
 	}	

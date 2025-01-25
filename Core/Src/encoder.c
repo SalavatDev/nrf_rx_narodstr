@@ -52,7 +52,7 @@ uint16_t	current_rpm_val = RPM_1;
 uint8_t		current_cnt_encoder = 0;
 uint8_t 	is_rpm_editing = 0;
 
-
+ 
  
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim){
 	
