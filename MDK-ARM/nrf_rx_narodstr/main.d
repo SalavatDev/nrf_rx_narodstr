@@ -33,9 +33,11 @@ nrf_rx_narodstr\main.o: ../Core/Inc/tim.h
 nrf_rx_narodstr\main.o: ../Core/Inc/gpio.h
 nrf_rx_narodstr\main.o: ../Core/Inc/app_lev_stend.h
 nrf_rx_narodstr\main.o: ../Core/Inc/NRF24.h
+nrf_rx_narodstr\main.o: ../Core/Inc/app_lev_stend.h
 nrf_rx_narodstr\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 nrf_rx_narodstr\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 nrf_rx_narodstr\main.o: ../Core/Inc/LCD_HD44780.h
 nrf_rx_narodstr\main.o: ../Core/Inc/stepper_motor.h
-nrf_rx_narodstr\main.o: ../Core/Inc/encoder.h
 nrf_rx_narodstr\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+nrf_rx_narodstr\main.o: ../Core/Inc/encoder.h
+nrf_rx_narodstr\main.o: ../Core/Inc/stepper_motor.h

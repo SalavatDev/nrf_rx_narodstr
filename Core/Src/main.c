@@ -101,13 +101,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
- 	 /*
-	 	GPIOB->BSRR = GPIO_PIN_0;
-		DelayPeriodStep(157);
-		GPIOB->BRR = GPIO_PIN_0;
-		DelayPeriodStep(157); 
- */
-		motor_step_period_change();
+ 
+		MotorSmoothStart();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

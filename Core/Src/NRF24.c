@@ -244,6 +244,36 @@ uint8_t isChipConnected(void)
 	return 0;
 }
 */
+union un_field_struct nrf_bits_field_rxdata;
+uint16_t dt=0; 
+
+ 
+
+void NrfRxCallbackHandler(void){
+	
+	uint8_t status = NRF24_ReadReg(STATUS);
+	DelayMicro(10);
+	status = NRF24_ReadReg(STATUS);
+		
+	if(status & RX_DR)
+	{
+			
+			NRF24_WriteReg(STATUS, RX_DR);
+			NRF24_Read_Buf(RD_RX_PLOAD,RX_BUF,TX_PLOAD_WIDTH);
+			nrf_bits_field_rxdata.rx_result_word = (uint16_t)(*((uint16_t*)RX_BUF));
+			
+				 
+			dt = nrf_bits_field_rxdata.rx_result_word & 0x01ff;
+			dt = ((float)((float)dt / 512) * 360); 		 
+			
+
+			SynchrAngle(); 				 
+			ShowAngleBitStat(); 	
+  
+	}	
+ 
+	
+}
 
 //------------------------------------------------
 void Nrf24Init(void)
@@ -268,8 +298,5 @@ void Nrf24Init(void)
  //пока уходим в режим приёмника
   NRF24L01_RX_Mode();
   LED_OFF;
-}
-//--------------------------------------------------
-
-
-
+	
+};

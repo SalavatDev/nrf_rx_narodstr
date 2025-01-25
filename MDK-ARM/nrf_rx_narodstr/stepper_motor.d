@@ -30,9 +30,13 @@ nrf_rx_narodstr\stepper_motor.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_h
 nrf_rx_narodstr\stepper_motor.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 nrf_rx_narodstr\stepper_motor.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 nrf_rx_narodstr\stepper_motor.o: ../Core/Inc/NRF24.h
-nrf_rx_narodstr\stepper_motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-nrf_rx_narodstr\stepper_motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-nrf_rx_narodstr\stepper_motor.o: ../Core/Inc/LCD_HD44780.h
+nrf_rx_narodstr\stepper_motor.o: ../Core/Inc/app_lev_stend.h
 nrf_rx_narodstr\stepper_motor.o: ../Core/Inc/tim.h
-nrf_rx_narodstr\stepper_motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+nrf_rx_narodstr\stepper_motor.o: ../Core/Inc/NRF24.h
+nrf_rx_narodstr\stepper_motor.o: ../Core/Inc/LCD_HD44780.h
+nrf_rx_narodstr\stepper_motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+nrf_rx_narodstr\stepper_motor.o: ../Core/Inc/stepper_motor.h
 nrf_rx_narodstr\stepper_motor.o: ../Core/Inc/encoder.h
+nrf_rx_narodstr\stepper_motor.o: ../Core/Inc/app_lev_stend.h
+nrf_rx_narodstr\stepper_motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+nrf_rx_narodstr\stepper_motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

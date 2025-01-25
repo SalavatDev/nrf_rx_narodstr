@@ -2,6 +2,7 @@
 #define NRF24_H_
 //------------------------------------------------
 #include "stm32f1xx_hal.h"
+#include "app_lev_stend.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -109,12 +110,9 @@ uint16_t rx_result_word;
 void Nrf24Init(void);
 uint8_t NRF24_ReadReg(uint8_t addr);
 void NRF24_Read_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes);
-//uint8_t NRF24L01_Send(uint8_t *pBuf);
-//void NRF24L01_Receive(void);
+void NrfRxCallbackHandler(void);
 void DelayMicro(__IO uint32_t us);
-//uint8_t isChipConnected(void);
-void NRF24_WriteReg(uint8_t addr, uint8_t dt);
- 
+void NRF24_WriteReg(uint8_t addr, uint8_t dt); 
 extern uint8_t first_show_maim_menu ; 
 extern uint8_t RX_BUF[] ;
 //------------------------------------------------

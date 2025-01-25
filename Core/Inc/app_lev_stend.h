@@ -12,7 +12,11 @@
  
 extern union un_field_struct nrf_bits_field_rxdata;
 extern uint16_t dt, delta_angle, delta_angle_max ;
- 
+
+void ShowAngleBitStat(void);
+void ShowEditMenuEcnoder(void);
+void SynchrAngle(void);
+void MotorSmoothStart(void);
 void init_stend(void);
 
 #endif

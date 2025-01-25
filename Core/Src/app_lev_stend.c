@@ -2,8 +2,7 @@
 #include "app_lev_stend.h"
 
 
-union un_field_struct nrf_bits_field_rxdata;
-uint16_t dt=0, delta_angle = 0, delta_angle_max = 0;
+
 
 static void InitLcd(void){
 	
@@ -37,7 +36,9 @@ void InitStepMotor(void){
  	
 };
 
-static void ShowEditMenuEcnoder(void){
+
+
+void ShowEditMenuEcnoder(void){
 	
 	display_clear_text();
 	goto_xy(0, 0);
@@ -46,17 +47,8 @@ static void ShowEditMenuEcnoder(void){
 	
 };
 
-static void SynchrAngle(void){
-	
-	if(pulse_angle.synchr){	
-				
-		pulse_angle.synchr = SYNCHR_OFF;
-		pulse_angle.angle = (float)dt;
-		delta_angle_max = 0;
-				
-	}
-	
-}
+
+uint16_t delta_angle = 0, delta_angle_max = 0;
 
 void ShowAngleBitStat(void){
  
@@ -68,7 +60,7 @@ void ShowAngleBitStat(void){
 					
 		delta_angle = (uint16_t)fabs(dt-pulse_angle.angle);
 				
-		if(show_max_delta_angle){
+		if(show_delta_angle){
 						
 			if(delta_angle_max < delta_angle)							
 				delta_angle_max = delta_angle;
@@ -82,7 +74,23 @@ void ShowAngleBitStat(void){
 	
 };
 
+void SynchrAngle(void){
+	
+	if(pulse_angle.synchr){	
+				
+		pulse_angle.synchr = SYNCHR_OFF;
+		pulse_angle.angle = (float)dt;
+		delta_angle_max = 0;
+				
+	}
+	
+}
 
+void MotorSmoothStart(void){
+	
+	motor_step_period_change(rpm[current_cnt_encoder], &current_rpm_val);
+	
+}
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
@@ -90,72 +98,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	if(GPIO_Pin	== IRQ_PIN_NRF)
 	{
 		
-		uint8_t status = NRF24_ReadReg(STATUS);
-		DelayMicro(10);
-		status = NRF24_ReadReg(STATUS);
-		
-		if(status & RX_DR)
-		{
-			
-			NRF24_WriteReg(STATUS, RX_DR);
-			NRF24_Read_Buf(RD_RX_PLOAD,RX_BUF,TX_PLOAD_WIDTH);
-			nrf_bits_field_rxdata.rx_result_word = (uint16_t)(*((uint16_t*)RX_BUF));
-			
-				 
-			dt = nrf_bits_field_rxdata.rx_result_word & 0x01ff;
-			dt = ((float)((float)dt / 512) * 360); 		 
-			
-
-			SynchrAngle(); 				 
-			ShowAngleBitStat(); 	
- 
-			if(is_rpm_editing){				
-				ShowEditMenuEcnoder();				
-			}
- 
-		}	
-		   
-	}else if(GPIO_Pin	== IRQ_PIN_ENCODER){
-		
-	 
-		
-		DISABLE_IT_EXTI_IRQ_NRF;
-		DISABLE_IT_EXTI_IRQ_ENCODER;  
-		
-		show_max_delta_angle = DISABLE;
-		is_rpm_editing = (!is_rpm_editing);
-		
-		if(is_rpm_editing){
-			
-			START_IT_TIM_ENCODEER;
-			
-			ShowEditMenuEcnoder();			
-			
-		}else{
-			
-			 
-		  STOP_IT_TIM_ENCODEER;			
-		   
-			change_period_step = ENABLE;
-			display_clear_text();
-			main_menu(); 
-			
-			if(!if_first_start_tim){
-				START_IT_TIM_STEPPER;
-				if_first_start_tim = NO;
-			}
-			
-			ENABLE_IT_EXTI_IRQ_NRF;
-			
+		NrfRxCallbackHandler();
+		if(is_rpm_editing){				
+			ShowEditMenuEcnoder();				
 		}
-		
-		 
-		DELAY_TIM_ANTI_DREBEZG;
-		
-		 __HAL_GPIO_EXTI_CLEAR_IT(IRQ_PIN_ENCODER);
-		
-		ENABLE_IT_EXTI_IRQ_ENCODER;
-
+		   
+	}else if(GPIO_Pin	== IRQ_PIN_ENCODER){	
+	 
+		PressButtonCallbackHandler();		
 		
 	}
 	 
