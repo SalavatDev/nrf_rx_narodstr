@@ -34,7 +34,7 @@ void InitStepMotor(void){
 	
 	START_TIM_DELAY_CHANGE_STEP;
  	
-};
+}
 
 
 
@@ -45,7 +45,7 @@ void ShowEditMenuEcnoder(void){
 	display_send_char("RPM");			 			 
 	display_send_num((int)rpm_val[current_cnt_encoder], 3, 0, 1);
 	
-};
+}
 
 
 uint16_t delta_angle = 0, delta_angle_max = 0;
@@ -72,7 +72,7 @@ void ShowAngleBitStat(void){
 										
 	}
 	
-};
+}
 
 void SynchrAngle(void){
 	

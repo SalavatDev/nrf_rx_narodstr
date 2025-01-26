@@ -45,7 +45,7 @@
  * INCLUDES							
  ************************************/
 #include "main.h"
-#include "tim.h"
+//#include "tim.h"
 #include "NRF24.h"
 #include "LCD_HD44780.h"
 #include "stepper_motor.h"

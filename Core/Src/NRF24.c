@@ -53,7 +53,7 @@ uint8_t NRF24_ReadReg(uint8_t addr)
   uint8_t dt=0, cmd;
   CS_ON;
   dt = SPI_send_soft(addr);
-  if (addr!=STATUS)//если адрес равен адрес регистра статус то и возварщаем его состояние
+  if (addr!=STATUS)//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   {
     cmd = 0xFF;
     dt = SPI_send_soft(cmd);
@@ -65,10 +65,10 @@ uint8_t NRF24_ReadReg(uint8_t addr)
 //------------------------------------------------
 void NRF24_WriteReg(uint8_t addr, uint8_t dt)
 {
-  addr |= W_REGISTER;//включим бит записи в адрес
+  addr |= W_REGISTER;//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
   CS_ON;
-  SPI_send_soft(addr);//отправим адрес в шину
-  SPI_send_soft(dt);//отправим данные в шину
+  SPI_send_soft(addr);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
+  SPI_send_soft(dt);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
   CS_OFF;
 }
 
@@ -88,9 +88,9 @@ void NRF24_ToggleFeatures(void)
 void NRF24_Read_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes)
 {
   CS_ON;
-  SPI_send_soft( addr );//отправим адрес в шину
+  SPI_send_soft( addr );//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
 	for(uint8_t i=0; i<bytes; ++i){
-		pBuf[i] = SPI_send_soft(0xff);//отправим данные в буфер
+		pBuf[i] = SPI_send_soft(0xff);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
 	}
   
   CS_OFF;
@@ -99,12 +99,12 @@ void NRF24_Read_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes)
 //------------------------------------------------
 void NRF24_Write_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes)
 {
-  addr |= W_REGISTER;//включим бит записи в адрес
+  addr |= W_REGISTER;//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
   CS_ON;
-  SPI_send_soft(addr);//отправим адрес в шину
+  SPI_send_soft(addr);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
   DelayMicro(1);	
 	for(uint8_t i=0; i<bytes; ++i){
-		SPI_send_soft(pBuf[i]);//отправим данные в буфер
+		SPI_send_soft(pBuf[i]);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
 	}
 	
   CS_OFF;
@@ -135,11 +135,11 @@ void NRF24L01_RX_Mode(void)
 {
   uint8_t regval=0x00;
   regval = NRF24_ReadReg(CONFIG);
-  //разбудим модуль и переведём его в режим приёмника, включив биты PWR_UP и PRIM_RX
+  //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ PWR_UP пїЅ PRIM_RX
   regval |= (1<<PWR_UP)|(1<<PRIM_RX);
   NRF24_WriteReg(CONFIG,regval);
   CE_SET;
-  DelayMicro(150); //Задержка минимум 130 мкс
+  DelayMicro(150); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 130 пїЅпїЅпїЅ
   // Flush buffers
   NRF24_FlushRX();
   NRF24_FlushTX();
@@ -160,11 +160,11 @@ void NRF24_Transmit(uint8_t addr,uint8_t *pBuf,uint8_t bytes)
 {
   CE_RESET;
   CS_ON;
-  SPI_send_soft(addr);//отправим адрес в шину
+  SPI_send_soft(addr);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
   DelayMicro(1);
  
 	for(uint8_t i=0; i<bytes; ++i){
-		SPI_send_soft(pBuf[i]);//отправим данные в буфер
+		SPI_send_soft(pBuf[i]);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
 	}
   CS_OFF;
   CE_SET;
@@ -176,12 +176,12 @@ uint8_t NRF24L01_Send(uint8_t *pBuf)
   uint8_t status=0x00, regval=0x00;
 	NRF24L01_TX_Mode(pBuf);
 	regval = NRF24_ReadReg(CONFIG);
-	//если модуль ушел в спящий режим, то разбудим его, включив бит PWR_UP и выключив PRIM_RX
+	//пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ PWR_UP пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ PRIM_RX
 	regval |= (1<<PWR_UP);
 	regval &= ~(1<<PRIM_RX);
 	NRF24_WriteReg(CONFIG,regval);
-	DelayMicro(150); //Задержка минимум 130 мкс
-	//Отправим данные в воздух
+	DelayMicro(150); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 130 пїЅпїЅпїЅ
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	NRF24_Transmit(WR_TX_PLOAD, pBuf, TX_PLOAD_WIDTH);
 	CE_SET;
 	DelayMicro(15); //minimum 10us high pulse (Page 21)
@@ -199,7 +199,7 @@ uint8_t NRF24L01_Send(uint8_t *pBuf)
 		NRF24_FlushTX();
 	}
 	regval = NRF24_ReadReg(OBSERVE_TX);
-	//Уходим в режим приёмника
+	//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   NRF24L01_RX_Mode();
 	return regval;
 }
@@ -291,13 +291,13 @@ void Nrf24Init(void)
 	NRF24_WriteReg(FEATURE, 0);
 	NRF24_WriteReg(DYNPD, 0);
 	NRF24_WriteReg(STATUS, 0x70); //Reset flags for IRQ
-	NRF24_WriteReg(RF_CH, 76); // частота 2476 MHz
+	NRF24_WriteReg(RF_CH, 76); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2476 MHz
 	NRF24_WriteReg(RF_SETUP, 0x06); //TX_PWR:0dBm, Datarate:1Mbps
 	NRF24_Write_Buf(TX_ADDR, TX_ADDRESS, TX_ADR_WIDTH);
 	NRF24_Write_Buf(RX_ADDR_P1, TX_ADDRESS, TX_ADR_WIDTH);
 	NRF24_WriteReg(RX_PW_P1, TX_PLOAD_WIDTH); //Number of bytes in RX payload in data pipe 1
- //пока уходим в режим приёмника
+ //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   NRF24L01_RX_Mode();
   LED_OFF;
 	
-};
+}

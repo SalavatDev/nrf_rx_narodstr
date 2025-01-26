@@ -5,7 +5,7 @@
 #include "main.h"
 #include "NRF24.h"
 #include "LCD_HD44780.h"
-#include "tim.h"
+//#include "tim.h"
 #include <math.h>
 #include "encoder.h"
 
