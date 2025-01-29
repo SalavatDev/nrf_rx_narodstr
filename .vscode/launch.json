@@ -27,6 +27,7 @@
             "serverArgs": [
                 "-m","0",
             ],
+            "showDevDebugOutput": "raw",
             "liveWatch": {
                 "enabled": true,
                 "samplesPerSecond": 4
