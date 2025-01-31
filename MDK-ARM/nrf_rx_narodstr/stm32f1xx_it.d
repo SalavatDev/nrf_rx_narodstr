@@ -31,7 +31,6 @@ nrf_rx_narodstr\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ha
 nrf_rx_narodstr\stm32f1xx_it.o: ../Core/Inc/stm32f1xx_it.h
 nrf_rx_narodstr\stm32f1xx_it.o: ../Core/Inc/NRF24.h
 nrf_rx_narodstr\stm32f1xx_it.o: ../Core/Inc/app_lev_stend.h
-nrf_rx_narodstr\stm32f1xx_it.o: ../Core/Inc/tim.h
 nrf_rx_narodstr\stm32f1xx_it.o: ../Core/Inc/NRF24.h
 nrf_rx_narodstr\stm32f1xx_it.o: ../Core/Inc/LCD_HD44780.h
 nrf_rx_narodstr\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

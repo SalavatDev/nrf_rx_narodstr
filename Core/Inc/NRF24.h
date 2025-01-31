@@ -1,38 +1,64 @@
+/*******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2024 Technology OFS.
+ * All rights reserved.
+ *
+ * The information contained herein is confidential
+ * property of Technology OFS.
+ * The use, copying, transfer or disclosure of such
+ * information is prohibited except by express written
+ * agreement with Technology OFS.
+ ******************************************************************************
+ * @file    NRF24.h
+ * @brief   pulse generation module for stepper motor.
+ * @author  Karimov S.
+ * @date    2025.01.25
+ * 
+ * @details
+ * 
+ * Module Description:
+ * 	  The library for controlling the nRF24l01 radio module contains all the 
+ * 	  necessary functions for configuration, management and initialization
+ * 
+ * Need to perform :
+ *     TODO 
+ * 
+ * Log: 
+ *     Version 1.0.0.0: Initial version.  
+ *         
+ * 
+ * Known Bugs:
+ *     This module is sensitive to power supply 
+ * 
+ * Fixed Bugs:
+ *     BUG FIXED dd.mm.yyyy 431 Description
+ *
+ ******************************************************************************/
+
+
+
 #ifndef NRF24_H_
 #define NRF24_H_
-//------------------------------------------------
+
+
+/************************************
+ * INCLUDES							
+ ************************************/
 #include "stm32f1xx_hal.h"
 #include "app_lev_stend.h"
 #include <stdio.h>
 #include <string.h>
 
-union  un_field_struct{
-  
-uint16_t rx_result_word;
-  
-  struct{
-    
-    unsigned a0:1;
-    unsigned a1:1;
-    unsigned a2:1;
-    unsigned a3:1;
-    unsigned a4:1;
-    unsigned a5:1;
-    unsigned a6:1;
-    unsigned a7:1;
-    unsigned a8:1;
-    unsigned a9:1;
-    unsigned a10:1;
-    unsigned a11:1;
-    unsigned a12:1;
-    unsigned a13:1;
-    unsigned a14:1;
-    unsigned a15:1;
-    
-  }bits_fld;
-  
-}; 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/************************************
+ * MACROS AND DEFINES
+ ************************************/
 
 #define TX_ADR_WIDTH 3
 #define TX_PLOAD_WIDTH 2
@@ -107,13 +133,68 @@ uint16_t rx_result_word;
 #define W_REGISTER 0x20 //запись в регистр
 //------------------------------------------------
 
-void Nrf24Init(void);
-uint8_t NRF24_ReadReg(uint8_t addr);
-void NRF24_Read_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes);
-void NrfRxCallbackHandler(void);
-void DelayMicro(__IO uint32_t us);
-void NRF24_WriteReg(uint8_t addr, uint8_t dt); 
+
+/************************************
+ * TYPEDEFS
+ ************************************/
+
+/**
+*	The structure is an association for convenient extraction of 
+*	status bits and storage of the result of the received word 
+*	from the radio channel
+*/
+union  un_field_struct{
+  
+uint16_t rx_result_word;
+  
+  struct{
+    
+    unsigned a0:1;
+    unsigned a1:1;
+    unsigned a2:1;
+    unsigned a3:1;
+    unsigned a4:1;
+    unsigned a5:1;
+    unsigned a6:1;
+    unsigned a7:1;
+    unsigned a8:1;
+    unsigned a9:1;
+    unsigned a10:1;
+    unsigned a11:1;
+    unsigned a12:1;
+    unsigned a13:1;
+    unsigned a14:1;
+    unsigned a15:1;
+    
+  }bits_fld;
+  
+}; 
+
+
+
+/************************************
+ * EXPORTED VARIABLES
+ ************************************/
 extern uint8_t first_show_maim_menu ; 
 extern uint8_t RX_BUF[] ;
-//------------------------------------------------
+extern union un_field_struct nrf_bits_field_rxdata;
+extern uint16_t dt; 
+
+
+/************************************
+ * GLOBAL FUNCTION PROTOTYPES
+ ************************************/
+void Nrf24Init(void);
+void NrfRxCallbackHandler(void);
+void DelayMicro(__IO uint32_t us);
+ 
+
+
+
+#ifdef __cplusplus
+}
+#endif
+
+
 #endif /* NRF24_H_ */
+
